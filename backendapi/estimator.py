@@ -1,5 +1,5 @@
-from src.Impact import computeForImpact
-from src.Severe import computeForSevereImpact
+from .Impact import computeForImpact
+from .Severe import computeForSevereImpact
 import json
 
 def estimator(data):
