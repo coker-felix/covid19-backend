@@ -52,8 +52,8 @@ class LogView(ListAPIView):
 	def get(self, request):
 		logs = Log.objects.all()
 		serializer = LogSerializer(logs, many=True)
-		# data = json.dumps(serializer.data)
-		return Response(serializer.data)	
+		data = serializer.data
+		return Response(data)	
 
 
 

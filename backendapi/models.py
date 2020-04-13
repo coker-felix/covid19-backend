@@ -8,5 +8,9 @@ class Log(models.Model):
     status_code = models.PositiveIntegerField(null=True, blank=True)
     response_ms = models.PositiveIntegerField(default=0)
 
-def __str__(self):
-    return '{} {}'.format(self.method, self.path)
+    def __str__(self):
+        return '{}  {}'.format(self.method, self.path)
+
+    def final(self):
+        return '{}  {} {} {}ms'.format(self.method, self.path, self.status_code, self.response_ms)    
+

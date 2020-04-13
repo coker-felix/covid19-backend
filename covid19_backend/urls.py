@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from backendapi.views import EstimatorView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path(r'api/v1/on-covid-19/', EstimatorView.as_view()),
     path(r'api/v1/on-covid-19', include('backendapi.urls'))
 ]
