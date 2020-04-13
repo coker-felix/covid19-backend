@@ -7,7 +7,7 @@ class LogSerializer(serializers.ModelSerializer):
         model = Log
         # fields = ['method','path', 'status_code', 'response_ms']
         fields = ['final_log']
-        # exclude = ['id']
+       
 
 
     def get_final_log(self, obj):
