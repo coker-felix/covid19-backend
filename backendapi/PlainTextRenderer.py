@@ -4,8 +4,8 @@ from rest_framework import renderers
 
 class PlainTextRenderer(renderers.BaseRenderer):
     media_type = 'text/plain'
-    format = 'txt'
+    format = 'text'
+    
 
     def render(self, data, media_type=None, renderer_context=None):
-        return smart_str(data)
-        # return data.encode(self.charset)
+        return str(renderers.JSONRenderer().render(data, media_type, renderer_context)).encode(self.charset)

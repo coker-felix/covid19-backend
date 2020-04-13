@@ -52,10 +52,8 @@ class LogView(ListAPIView):
 	def get(self, request):
 		logs = Log.objects.all()
 		serializer = LogSerializer(logs, many=True)
-		data = json.dumps(serializer.data)
-		# value = data.values()
-		# output = "{} \t {} \t {}\t {}\n".format(value['method'], value['path'], value['status_code'], value['response_ms'])
-		return Response(data)	
+		# data = json.dumps(serializer.data)
+		return Response(serializer.data)	
 
 
 
