@@ -3,7 +3,10 @@ from django.utils.decorators import decorator_from_middleware
 from .middleware import RequestLogMiddleware
 
 
-class RequestLogViewMixin:
+class RequestLogViewMixin(object):
+    """
+    Adds RequestLogMiddleware to any Django View by overriding as_view.
+    """
 
     @classmethod
     def as_view(cls, *args, **kwargs):

@@ -3,12 +3,10 @@ from django.db import models
 # Create your models here.
 
 class Log(models.Model):
-    request_type = models.CharField(max_length=30)
-    request_path = models.CharField(max_length=30)
-    http_status = models.IntegerField()
-    time_to_process = models.CharField(max_length=30)
+    method = models.CharField(max_length=10, null=True)
+    path = models.CharField(max_length=200, db_index=True)
+    status_code = models.PositiveIntegerField(null=True, blank=True)
+    response_ms = models.PositiveIntegerField(default=0)
 
-    def __str__(self):
-        return self.request_path
-    
-
+def __str__(self):
+    return '{} {}'.format(self.method, self.path)

@@ -25,7 +25,7 @@ SECRET_KEY = '%)+-&u&kq5*@hv$h-=*8i*toq_y%pth-mvxa94ea+v3@&ki)tl'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['co-covid-19.herokuapp.com']
+ALLOWED_HOSTS = ['co-covid-19.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'backendapi',
     'rest_framework',
-    'rest_framework_xml'
+    'rest_framework_xml',
+    'rest_framework_tracking'
 ]
 
 MIDDLEWARE = [
@@ -129,9 +130,16 @@ STATIC_URL = '/static/'
 
 
 REST_FRAMEWORK = {
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+        'rest_framework_xml.parsers.XMLParser',
+        'backendapi.PlainTextParser.PlainTextParser',
+    ],
+
  'DEFAULT_RENDERER_CLASSES': (
     'rest_framework.renderers.JSONRenderer',
     'rest_framework.renderers.BrowsableAPIRenderer',
     'rest_framework_xml.renderers.XMLRenderer',
+    'backendapi.PlainTextRenderer.PlainTextRenderer'
  )
 }

@@ -1,23 +1,24 @@
 import socket
 import time
+from django.utils.timezone import now
 from backendapi.models import Log
 
-class RequestLogMiddleware:
+class RequestLogMiddleware(object):
     def process_request(self, request):
-        request.start_time = time.time()
+        self.requested_at = now()
+
 
     def process_response(self, request, response):
-        # log_data = {
-        #     'request_method': request.method,
-        #     'request_path': request.get_full_path(),
-        #     'http_status': response.status_code,
-        #     'run_time': time.time() - request.start_time,
-        # }
-        new_data = Log()
-        new_data.request_type = request.method
-        new_data.request_path = request.get_full_path()
-        new_data.http_status = response.status_code
-        new_data.time_to_process = time.time() - request.start_time
-        new_data.save()
+        request_method = request.method
+        request_path = request.get_full_path()
+        response_status = response.status_code
+        response_timedelta = now() - self.requested_at
+        response_ms = int(response_timedelta.total_seconds() * 1000)
+        newlog = Log()
+        newlog.method = request_method
+        newlog.path = request_path
+        newlog.response_ms = response_ms
+        newlog.status_code = response_status
+        newlog.save()
 
         return response
