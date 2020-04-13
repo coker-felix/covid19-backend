@@ -15,6 +15,6 @@ class LogSerializer(serializers.ModelSerializer):
 
     def to_representation(self, data):
         # return {'method': data.method, 'path': data.path, 'status_code': data.status_code, 'response_ms': data.response_ms}
-        return "{} \t {} \t{} \t{}ms \n".format(data.method, data.path, data.status_code, data.response_ms)
+        return "{} \t{} \t{} \t{}ms \n".format(data.method, data.path, data.status_code, data.response_ms)
 
         

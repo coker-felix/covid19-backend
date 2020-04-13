@@ -9,7 +9,7 @@ class Log(models.Model):
     response_ms = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return '{}  {}'.format(self.method, self.path)
+        return '{}  {}'.format(self.method, self.response_ms)
 
     def final(self):
         return '{}  {} {} {}ms'.format(self.method, self.path, self.status_code, self.response_ms)    

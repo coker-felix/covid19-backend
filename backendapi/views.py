@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from .Impact import computeForImpact
 from .Severe import computeForSevereImpact
 from .estimator import estimator
-# from rest_framework_tracking.mixins import LoggingMixin
+from rest_framework_tracking.mixins import LoggingMixin
 from covid19_backend.mixin import RequestLogViewMixin 
 import json
 
@@ -19,7 +19,7 @@ from .PlainTextRenderer import PlainTextRenderer
 
 
 # Create your views here.
-class EstimatorView(RequestLogViewMixin , APIView):
+class EstimatorView(RequestLogViewMixin, APIView):
 	renderer_classes = (JSONRenderer, BrowsableAPIRenderer)
 	parser_classes = (JSONParser,)
 	def post(self, request):
@@ -55,5 +55,9 @@ class LogView(ListAPIView):
 		data = serializer.data
 		return Response(data)	
 
-
+	def post(self, request):
+		logs = Log.objects.all()
+		serializer = LogSerializer(logs, many=True)
+		data = serializer.data
+		return Response(data)
 
