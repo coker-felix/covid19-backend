@@ -34,7 +34,7 @@ class EstimatorView(RequestLogViewMixin , APIView):
 
 class EstimatorXMLView(RequestLogViewMixin , APIView):
 	renderer_classes = (XMLRenderer,)
-	parser_classes = (XMLParser,)
+	parser_classes = (JSONParser,)
 	def post(self, request):
 		post_data = request.data
 		output_data = estimator(post_data)	
@@ -47,7 +47,7 @@ class EstimatorXMLView(RequestLogViewMixin , APIView):
 
 class LogView(ListAPIView):
 	renderer_classes = (PlainTextRenderer,)
-	parser_classes = (PlainTextParser,)
+	# parser_classes = (PlainTextParser,)
 
 	def get(self, request):
 		logs = Log.objects.all()
