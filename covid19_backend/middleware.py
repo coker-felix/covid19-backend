@@ -15,8 +15,6 @@ class RequestLogMiddleware(object):
         response_timedelta = now() - request.requested_at
         response_ms = int(response_timedelta.total_seconds() * 1000)
         response_ms = max(response_ms, 0)
-        if len(str(response_ms)) == 1:
-            response_ms = '0' + response_ms 
         newlog = Log()
         newlog.method = request_method
         newlog.path = request_path
@@ -25,3 +23,5 @@ class RequestLogMiddleware(object):
         newlog.save()
 
         return response
+
+        

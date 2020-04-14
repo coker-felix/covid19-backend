@@ -12,5 +12,5 @@ class Log(models.Model):
         return '{}  {}'.format(self.method, self.response_ms)
 
     def final(self):
-        return '{}  {} {} {}ms'.format(self.method, self.path, self.status_code, self.response_ms)    
+        return '{}  {} {} {}'.format(self.method, self.path, self.status_code, self.response_ms)    
 
