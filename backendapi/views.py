@@ -18,6 +18,8 @@ from .PlainTextParser import PlainTextParser
 from .PlainTextRenderer import PlainTextRenderer
 
 
+
+from django.http import HttpResponse
 # Create your views here.
 class EstimatorView(RequestLogViewMixin, APIView):
 	renderer_classes = (JSONRenderer, BrowsableAPIRenderer)
@@ -53,5 +55,6 @@ class LogView(RequestLogViewMixin, ListAPIView):
 		logs = Log.objects.all()
 		serializer = LogSerializer(logs, many=True)
 		data = serializer.data
-		return Response(data)	
+		# return Response(data)
+		return HttpResponse(data, content_type='text/plain; charset=utf-8')	
 
