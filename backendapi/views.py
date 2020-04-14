@@ -47,17 +47,11 @@ class EstimatorXMLView(RequestLogViewMixin, APIView):
 
 class LogView(RequestLogViewMixin, ListAPIView):
 	renderer_classes = (PlainTextRenderer,)
-	# parser_classes = (PlainTextParser,)
-
+	parser_classes = (PlainTextParser,)
+	http_method_names = ['get']
 	def get(self, request):
 		logs = Log.objects.all()
 		serializer = LogSerializer(logs, many=True)
 		data = serializer.data
 		return Response(data)	
-
-	# def post(self, request):
-	# 	logs = Log.objects.all()
-	# 	serializer = LogSerializer(logs, many=True)
-	# 	data = serializer.data
-	# 	return Response(data)
 
