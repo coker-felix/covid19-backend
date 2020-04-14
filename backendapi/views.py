@@ -55,9 +55,9 @@ class LogView(RequestLogViewMixin, ListAPIView):
 		data = serializer.data
 		return Response(data)	
 
-	def post(self, request):
-		logs = Log.objects.all()
-		serializer = LogSerializer(logs, many=True)
-		data = serializer.data
-		return Response(data)
+	# def post(self, request):
+	# 	logs = Log.objects.all()
+	# 	serializer = LogSerializer(logs, many=True)
+	# 	data = serializer.data
+	# 	return Response(data)
 
