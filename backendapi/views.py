@@ -55,10 +55,9 @@ class LogView(LoggingMixin, ListAPIView):
 	http_method_names = ['get']
 
 	def get(self, request):
-		# logs = Log.objects.all()
 		xlogs = APIRequestLog.objects.values('method','path', 'status_code', 'response_ms',)
 		serializer = LogSerializer(xlogs, many=True)
 		data = serializer.data
-		# return Response(data)
-		return HttpResponse(data, content_type='text/plain; charset=utf-8')	
+		return Response(data)
+		# return HttpResponse(data, content_type='text/plain; charset=utf-8')	
 
