@@ -9,6 +9,8 @@ from .Impact import computeForImpact
 from .Severe import computeForSevereImpact
 from .estimator import estimator
 from rest_framework_tracking.mixins import LoggingMixin
+from rest_framework_tracking.base_models import BaseAPIRequestLog
+from rest_framework_tracking.models import APIRequestLog
 from covid19_backend.mixin import RequestLogViewMixin 
 import json
 
@@ -21,7 +23,7 @@ from .PlainTextRenderer import PlainTextRenderer
 
 from django.http import HttpResponse
 # Create your views here.
-class EstimatorView(RequestLogViewMixin, APIView):
+class EstimatorView(LoggingMixin, APIView):
 	renderer_classes = (JSONRenderer, BrowsableAPIRenderer)
 	parser_classes = (JSONParser,)
 	def post(self, request):
@@ -34,7 +36,7 @@ class EstimatorView(RequestLogViewMixin, APIView):
 		return Response()	
 
 
-class EstimatorXMLView(RequestLogViewMixin, APIView):
+class EstimatorXMLView(LoggingMixin,APIView):
 	renderer_classes = (XMLRenderer,)
 	parser_classes = (JSONParser,)
 	def post(self, request):
@@ -47,13 +49,15 @@ class EstimatorXMLView(RequestLogViewMixin, APIView):
 
 
 
-class LogView(RequestLogViewMixin, ListAPIView):
+class LogView(LoggingMixin, ListAPIView):
 	renderer_classes = (PlainTextRenderer,)
 	parser_classes = (PlainTextParser,)
 	http_method_names = ['get']
+
 	def get(self, request):
-		logs = Log.objects.all()
-		serializer = LogSerializer(logs, many=True)
+		# logs = Log.objects.all()
+		xlogs = APIRequestLog.objects.values('method','path', 'status_code', 'response_ms',)
+		serializer = LogSerializer(xlogs, many=True)
 		data = serializer.data
 		# return Response(data)
 		return HttpResponse(data, content_type='text/plain; charset=utf-8')	
